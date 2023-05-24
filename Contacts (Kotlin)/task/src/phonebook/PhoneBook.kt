@@ -1,13 +1,14 @@
 package contacts.phonebook
 
-import contacts.contacts.PersonContact
 import contacts.contacts.Contact
 import contacts.contacts.OrganizationContact
-import kotlinx.serialization.ExperimentalSerializationApi
+import contacts.contacts.PersonContact
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.io.File
 
-class PhoneBook {
+class PhoneBook(private val file: File?) {
     private val contacts = mutableListOf<Contact>()
 
     enum class ContactType {
@@ -19,14 +20,6 @@ class PhoneBook {
                 else valueOf(str.uppercase())
             }
         }
-    }
-
-    fun addContacts(list: List<Contact>) {
-        contacts.addAll(list)
-    }
-
-    fun removeAllContacts() {
-        contacts.clear()
     }
 
     private fun printContactList() {
@@ -48,11 +41,6 @@ class PhoneBook {
         println(contact.toString())
     }
 
-    @OptIn(ExperimentalSerializationApi::class)
-    private val json = Json {
-        prettyPrint = true
-    }
-
     fun addContact() {
         println("Enter the type (person, organization):")
         val contactType = ContactType.of(readln()) ?: return println("There is no such type!")
@@ -61,7 +49,6 @@ class PhoneBook {
             ContactType.ORGANIZATION -> OrganizationContact.createInstance()
         }
         contacts.add(contact)
-        println(json.encodeToString(contacts))
         println("The record added.")
     }
 
@@ -94,5 +81,22 @@ class PhoneBook {
             input = readln()
         }
         return input.toInt() - 1
+    }
+
+    private val json = Json { prettyPrint = true }
+
+    fun saveContactsToFile() {
+        if (file == null) return
+        if (!file.exists()) file.createNewFile()
+        file.writeText(json.encodeToString(contacts))
+        println("Successfully saved!")
+    }
+
+    fun loadContactsFromFile() {
+        if (file == null || !file.exists()) return
+        val text = file.readText()
+        println("decoded: $text")
+        contacts.clear()
+        contacts.addAll(Json.decodeFromString<List<Contact>>(text))
     }
 }
