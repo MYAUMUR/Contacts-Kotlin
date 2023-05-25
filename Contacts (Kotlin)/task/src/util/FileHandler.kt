@@ -1,4 +1,4 @@
-package contacts.file
+package models.util
 
 interface FileHandler {
     fun save()

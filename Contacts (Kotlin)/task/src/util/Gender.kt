@@ -1,4 +1,4 @@
-package contacts.util
+package models.util
 
 enum class Gender(val value: String) {
     MALE("M"), FEMALE("F");

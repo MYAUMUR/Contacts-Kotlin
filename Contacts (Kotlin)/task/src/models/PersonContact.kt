@@ -1,7 +1,7 @@
-package contacts.contacts
+package models
 
-import contacts.phonebook.SystemClock
-import contacts.util.Gender
+import models.util.SystemClock
+import models.util.Gender
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -1,8 +1,8 @@
-package contacts.phonebook
+package models.phonebook
 
-import contacts.contacts.Contact
-import contacts.contacts.OrganizationContact
-import contacts.contacts.PersonContact
+import models.Contact
+import models.OrganizationContact
+import models.PersonContact
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -89,13 +89,12 @@ class PhoneBook(private val file: File?) {
         if (file == null) return
         if (!file.exists()) file.createNewFile()
         file.writeText(json.encodeToString(contacts))
-        println("Successfully saved!")
     }
 
     fun loadContactsFromFile() {
         if (file == null || !file.exists()) return
         val text = file.readText()
-        println("decoded: $text")
+//        println("decoded: $text")
         contacts.clear()
         contacts.addAll(Json.decodeFromString<List<Contact>>(text))
     }

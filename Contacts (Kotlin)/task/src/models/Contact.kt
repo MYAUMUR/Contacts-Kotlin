@@ -1,7 +1,7 @@
-package contacts.contacts
+package models
 
-import contacts.phonebook.SystemClock
-import contacts.validation.Validator
+import models.util.SystemClock
+import models.validation.Validator
 import kotlinx.serialization.Serializable
 
 @Serializable

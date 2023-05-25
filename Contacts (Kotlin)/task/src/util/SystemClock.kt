@@ -1,4 +1,4 @@
-package contacts.phonebook
+package models.util
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone

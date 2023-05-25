@@ -1,4 +1,4 @@
-package contacts
+package models
 
 import java.io.File
 

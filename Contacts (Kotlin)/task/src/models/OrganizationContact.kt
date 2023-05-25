@@ -1,7 +1,9 @@
-package contacts.contacts
+package models
 
-import contacts.phonebook.SystemClock
+import kotlinx.serialization.Serializable
+import models.util.SystemClock
 
+@Serializable
 class OrganizationContact private constructor(
     override var name: String,
     private var address: String,

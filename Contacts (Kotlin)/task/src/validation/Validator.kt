@@ -1,4 +1,4 @@
-package contacts.validation
+package models.validation
 
 object Validator : PhoneNumberValidator {
     override fun validateNumber(num: String): Boolean =

@@ -1,6 +1,6 @@
-package contacts
+package models
 
-import contacts.phonebook.PhoneBook
+import models.phonebook.PhoneBook
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -37,24 +37,27 @@ class ContactsApp(file: File?) {
         }
     }
 
-    private fun doAction(action: Action) = when (action) {
-        Action.ADD -> {
-            phoneBook.addContact()
-            phoneBook.saveContactsToFile()
-        }
+    private fun doAction(action: Action) = with(phoneBook) {
+        when (action) {
+            Action.ADD -> {
+                addContact()
+                saveContactsToFile()
+            }
 
-        Action.REMOVE -> {
-            phoneBook.removeContact()
-            phoneBook.saveContactsToFile()
-        }
+            Action.REMOVE -> {
+                removeContact()
+                saveContactsToFile()
+            }
 
-        Action.EDIT -> {
-            phoneBook.editContact()
-            phoneBook.saveContactsToFile()
-        }
+            Action.EDIT -> {
+                editContact()
+                saveContactsToFile()
+            }
 
-        Action.COUNT -> phoneBook.printCount()
-        Action.INFO -> phoneBook.printContactInfo()
-        Action.EXIT -> exitProcess(0)
+            Action.COUNT -> printCount()
+            Action.INFO -> printContactInfo()
+            Action.EXIT -> exitProcess(0)
+        }
     }
 }
+
