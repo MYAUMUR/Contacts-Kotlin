@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://cogniterra.org/media/attachments/lesson/26635/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Thu, 25 May 2023 07:36:40 UTC"
+update_date: "Sat, 27 May 2023 19:00:12 UTC"
 stages:
 - id: 1321
   step: 20388
@@ -16,7 +16,7 @@ stages:
   is_completed: true
 - id: 1324
   step: 20391
-  is_completed: false
+  is_completed: true
 topics:
   0:
   - title: Binary numbers

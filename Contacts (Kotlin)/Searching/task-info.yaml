@@ -526,9 +526,6 @@ files:
     \        }\n        catch (Exception ex) {\n            return new CheckResult(false,\
     \ \"Can't check the answer\");\n        }\n    }\n}\n"
   learner_created: false
-- name: src/phonebook/PhoneBook.kt
-  visible: true
-  learner_created: true
 - name: src/util/Gender.kt
   visible: true
   learner_created: true
@@ -536,9 +533,6 @@ files:
   visible: true
   learner_created: true
 - name: src/validation/Validator.kt
-  visible: true
-  learner_created: true
-- name: src/ContactsApp.kt
   visible: true
   learner_created: true
 - name: src/models/OrganizationContact.kt
@@ -556,6 +550,16 @@ files:
 - name: src/util/FileHandler.kt
   visible: true
   learner_created: true
+- name: src/ContactManager.kt
+  visible: true
+  learner_created: true
+- name: src/phonebook/DefaultContactBook.kt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/20391#comment
-status: Failed
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Sat, 27 May 2023 20:23:59 UTC"
 record: -1

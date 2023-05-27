@@ -1,20 +1,23 @@
 package models
 
+import kotlinx.serialization.Required
+import kotlinx.serialization.Serializable
 import models.util.SystemClock
 import models.validation.Validator
-import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class Contact(
-
-) {
+sealed class Contact {
     abstract var name: String
     abstract var number: String?
 
-    @kotlinx.serialization.Required
+    @Required
     var timeCreated: String = SystemClock.getCurrentTime()
-    @kotlinx.serialization.Required
+    @Required
     var timeLastEdit: String = timeCreated
+
+    abstract fun matchesQuery(query: String): Boolean
+
+    abstract fun getDisplayName(): String
 
     protected fun setPhoneNumber(newNumber: String?): String? = when {
         newNumber == null -> null
@@ -24,7 +27,6 @@ sealed class Contact(
             null
         }
     }
-
 
     abstract fun changeProperty()
 

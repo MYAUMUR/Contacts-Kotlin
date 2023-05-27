@@ -10,6 +10,15 @@ class OrganizationContact private constructor(
     override var number: String?
 ) : Contact() {
 
+    override fun matchesQuery(query: String): Boolean {
+        val normalizedQuery = query.lowercase()
+        return name.lowercase().contains(normalizedQuery) ||
+                address.lowercase().contains(normalizedQuery) ||
+                number?.contains(normalizedQuery) == true
+    }
+
+    override fun getDisplayName(): String = name
+
     override fun changeProperty() {
         println("Select a field (${getAllEditableProperties()}):")
         val field = EditableField.of(readln()) ?: return println("Wrong field name!")
@@ -22,6 +31,12 @@ class OrganizationContact private constructor(
             EditableField.NUMBER -> {
                 println("Enter number:")
                 number = setPhoneNumber(readln())
+            }
+            EditableField.NAME -> {
+                println("Enter name:")
+                val name = readlnOrNull()
+                if (name.isNullOrBlank()) return  println("Name cannot be blank. It was not changed!")
+                else this.name = name
             }
         }
         timeLastEdit = SystemClock.getCurrentTime()
@@ -39,7 +54,11 @@ class OrganizationContact private constructor(
     companion object {
         fun createInstance(): OrganizationContact {
             println("Enter the organization name:")
-            val name = readln()
+            var name = readln()
+            while (name.isBlank()) {
+                println("Organization name cannot be blank! Input again:")
+                name = readln()
+            }
             println("Enter the address:")
             val address = readln()
             println("Enter the number:")
@@ -49,7 +68,7 @@ class OrganizationContact private constructor(
     }
 
     enum class EditableField {
-        ADDRESS, NUMBER;
+        NAME, ADDRESS, NUMBER;
 
         companion object {
             fun of(str: String): EditableField? {

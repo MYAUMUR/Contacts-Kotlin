@@ -1,13 +1,13 @@
 package models
 
-import models.util.SystemClock
-import models.util.Gender
 import kotlinx.serialization.Serializable
+import models.util.Gender
+import models.util.SystemClock
 
 @Serializable
 class PersonContact private constructor(
     override var name: String,
-    var surname: String,
+    private var surname: String,
     private var birthDate: String?,
     private var gender: Gender?,
     override var number: String? = null,
@@ -21,6 +21,17 @@ class PersonContact private constructor(
     }
 
     private fun getAllEditableProperties(): String = EditableField.values().joinToString { it.name.lowercase() }
+
+    override fun matchesQuery(query: String): Boolean {
+        val normalizedQuery = query.lowercase()
+        return name.lowercase().contains(normalizedQuery) ||
+                surname.lowercase().contains(normalizedQuery) ||
+                number?.contains(normalizedQuery) == true
+    }
+
+    override fun getDisplayName(): String {
+        return "$name $surname"
+    }
 
     override fun changeProperty() {
         println("Select a field (${getAllEditableProperties()}):")
@@ -68,9 +79,17 @@ class PersonContact private constructor(
     companion object {
         fun createInstance(): PersonContact {
             println("Enter the name:")
-            val name = readln()
+            var name = readln()
+            while (name.isBlank()) {
+                println("Invalid name. Please input again:")
+                name = readln()
+            }
             println("Enter the surname:")
-            val surname = readln()
+            var surname = readln()
+            while (surname.isBlank()) {
+                println("Invalid surname. Please input again:")
+                surname = readln()
+            }
             println("Enter the birth date:")
             val birthDate = readln().ifBlank {
                 println("Bad birth date!")
